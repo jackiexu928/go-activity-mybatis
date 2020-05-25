@@ -43,7 +43,7 @@ public interface ActivityRecordMapper {
             "<if test='willOrDone == 2'>" +
             "and b.start_time &lt; #{now}" +
             "</if>" +
-            "order by create_time desc" +
+            "order by a.create_time desc" +
             "</script>")
     List<ActivityRecord> findByOpenIdAndTime(String openId, Integer willOrDone, Date now);
 
