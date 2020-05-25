@@ -5,7 +5,9 @@ import com.jackie.goactivitymybatis.common.constant.RedisConstants;
 import com.jackie.goactivitymybatis.domain.request.LoginReqDTO;
 import com.jackie.goactivitymybatis.domain.response.LoginTokenRespDTO;
 import com.jackie.goactivitymybatis.entity.Account;
+import com.jackie.goactivitymybatis.entity.LoginInfo;
 import com.jackie.goactivitymybatis.mapper.AccountMapper;
+import com.jackie.goactivitymybatis.mapper.LoginInfoMapper;
 import com.jackie.goactivitymybatis.process.AbstractService;
 import com.jackie.goactivitymybatis.process.Context;
 import com.jackie.goactivitymybatis.util.UuidUtil;
@@ -14,6 +16,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created with IntelliJ IDEA
@@ -26,6 +29,8 @@ import java.util.Date;
 public class AccountService extends AbstractService {
     @Autowired
     private AccountMapper accountMapper;
+    @Autowired
+    private LoginInfoMapper loginInfoMapper;
     @Autowired
     private RedisTemplate redisTemplate;
 
@@ -64,6 +69,16 @@ public class AccountService extends AbstractService {
             account.setUpdateTime(now);
             accountMapper.updateById(account);
         }
+        //登陆记录表添加登陆记录
+        LoginInfo loginInfo = new LoginInfo();
+        loginInfo.setOpenId(reqDTO.getOpenId());
+        loginInfo.setNickName(reqDTO.getNickName());
+        loginInfo.setLoginTime(now);
+        loginInfoMapper.insert(loginInfo);
+        //将token存入redis，登陆有效期24小时
+        redisTemplate.opsForValue().set(RedisConstants.GO_ACTIVITY_USER_TOKEN + reqDTO.getOpenId(), token, 24, TimeUnit.HOURS);
+        redisTemplate.opsForValue().set(RedisConstants.GO_ACTIVITY_USER_USER_INFO + reqDTO.getOpenId(), JSON.toJSONString(account), 24, TimeUnit.HOURS);
+        redisTemplate.opsForValue().set(RedisConstants.GO_ACTIVITY_USER_PREFIX + token, reqDTO.getOpenId(), 24, TimeUnit.HOURS);
         LoginTokenRespDTO respDTO = new LoginTokenRespDTO();
         respDTO.setToken(token);
         context.setResult(respDTO);
