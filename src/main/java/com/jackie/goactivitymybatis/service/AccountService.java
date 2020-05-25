@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -27,9 +28,9 @@ import java.util.concurrent.TimeUnit;
  */
 @Service
 public class AccountService extends AbstractService {
-    @Autowired
+    @Resource
     private AccountMapper accountMapper;
-    @Autowired
+    @Resource
     private LoginInfoMapper loginInfoMapper;
     @Autowired
     private RedisTemplate redisTemplate;

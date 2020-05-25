@@ -11,11 +11,11 @@ import lombok.Data;
  */
 @Data
 public class Message extends BaseEntity {
-    private String id;
+    private Long id;
     /**
      * 活动ID
      */
-    private String activityId;
+    private Long activityId;
     /**
      * 用户ID
      */

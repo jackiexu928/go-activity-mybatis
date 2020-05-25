@@ -11,7 +11,7 @@ import lombok.Data;
  */
 @Data
 public class ActivityRecord extends BaseEntity{
-    private String id;
+    private Long id;
     /**
      * 用户openId
      */
@@ -19,7 +19,7 @@ public class ActivityRecord extends BaseEntity{
     /**
      * 活动ID
      */
-    private String activityId;
+    private Long activityId;
     /**
      * 种类，1-运动，2-户外，3-聚餐，4-桌游，5-娱乐活动，6-读书会，7-其他，默认为其他
      */
