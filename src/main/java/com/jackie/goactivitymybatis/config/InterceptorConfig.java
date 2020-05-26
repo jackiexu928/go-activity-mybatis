@@ -28,7 +28,7 @@ import java.io.OutputStream;
  * @date 2020-04-29
  */
 public class InterceptorConfig implements HandlerInterceptor {
-    private static final Logger log = LoggerFactory.getLogger(InterceptorConfig.class);
+    private static final Logger log = LoggerFactory.getLogger("admin");
     @Autowired
     private RedisTemplate redisTemplate;
 

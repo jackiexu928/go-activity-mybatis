@@ -13,7 +13,7 @@ import util.LogUtil;
  * 更新类操作抽象类
  */
 public abstract class AbstractService <P extends BaseReqDTO,M> implements CommonInterface<P, M>{
-    protected final static Logger logger = LoggerFactory.getLogger("Service");
+    protected final static Logger logger = LoggerFactory.getLogger("project");
 
     @Override
     public void onStarted(Context<P, M> context) {

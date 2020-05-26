@@ -2,6 +2,7 @@ server:
   port: 8080
   servlet:
     context-path: /go-activity
+  #port: 8800
 
 spring:
   datasource:
@@ -25,3 +26,5 @@ mybatis:
   type-aliases-package: com.jackie.goactivitymybatis.entity
   configuration:
     map-underscore-to-camel-case: true
+
+LOG_HOME: /opt/log/go-activity/log

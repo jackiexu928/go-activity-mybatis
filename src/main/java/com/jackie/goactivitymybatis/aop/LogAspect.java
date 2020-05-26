@@ -52,15 +52,14 @@ public class LogAspect {
                 commonInterface.onSuccess(context);
             } catch (Exception e){
                 commonInterface.onError(context, e);
-                LogUtil.error(logger, className + "." + methodName, context.getParam(), e);
+                LogUtil.error(logger, className + "." + methodName, params[0], e);
             } finally {
                 context.setClassName(className);
                 context.setMethodName(methodName);
                 commonInterface.onEnd(context);
             }
             end = System.currentTimeMillis();
-            LogUtil.info(logger, className + "." + methodName, context.getParam(),
-                    "耗时：" + (end - start) + "ms");
+            LogUtil.info(logger, className + "." + methodName, params[0], "耗时：" + (end - start) + "ms");
             return context;
         } else {
             Object o = joinPoint.proceed();
