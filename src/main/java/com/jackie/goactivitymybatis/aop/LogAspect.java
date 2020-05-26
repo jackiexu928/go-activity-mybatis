@@ -22,7 +22,7 @@ import util.LogUtil;
 @Aspect
 @Component
 public class LogAspect {
-    private static final Logger logger = LoggerFactory.getLogger("Service");
+    private static final Logger logger = LoggerFactory.getLogger("project");
 
     @Pointcut("execution(public * com.jackie.goactivitymybatis.service.*.*(..))")
     public void LogAspect(){}
